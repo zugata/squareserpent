@@ -1,5 +1,9 @@
 .idea/
 node_modules/
 dist/
+/lambda/lib/
+lambda.zip
 *.log
 *.map
+*.sw[op]
+*.un~

@@ -1,0 +1,13 @@
+{
+    "project": "FILL_ME_IN",
+    "template": "some-email.hbs",
+    "email": "evan@example.com",
+    "data": {
+        "COMPANY_NAME": "ABC Widgets",
+        "EMAIL": "alice@exampe.com",
+        "FROM_EMAIL_ADDRESS": "bob@example.com",
+        "FROM_NAME": "Bob Smith",
+        "FROM_NAME_PROFILE_PIC": "https://s3.amazonaws.com/uifaces/faces/twitter/zombieoummy/128.jpg",
+        "TO_NAME": "Alice Jones"
+    }
+}

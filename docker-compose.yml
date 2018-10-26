@@ -1,0 +1,42 @@
+version: "3.4"
+services:
+  squareserpent:
+    build: .
+    volumes:
+      - ./src:/code/src
+      - ./scripts:/code/scripts
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    links:
+      - fakes3ssl:testbucket.s3.amazonaws.com
+    environment:
+      EXTERNAL_HOSTNAME: localhost
+      SQUARESERPENT_S3_TLS_ALLOW_UNAUTHORIZED: "true"
+      SQUARESERPENT_S3_ACCESS_KEY_ID: test
+      SQUARESERPENT_S3_SECRET_ACCESS_KEY: 123
+      SQUARESERPENT_S3_BUCKET_NAME: testbucket
+      SQUARESERPENT_SMTP_HOST: mailcatcher
+      SQUARESERPENT_SMTP_PORT: 1025
+      SQUARESERPENT_SMTP_USERNAME: from@example.com
+      SQUARESERPENT_SMTP_PASSWORD: ""
+      SQUARESERPENT_DEFAULT_PROJECT: myproject
+    command: >
+      bash -c "
+      while ! python -c \"import socket; socket.create_connection(('testbucket.s3.amazonaws.com', 443))\" 2>/dev/null; do
+        echo 'waiting for fakes3...' && sleep 10;
+      done &&
+      echo Creating bucket \'testbucket\'... &&
+      curl -XPUT --insecure --silent 'https://testbucket.s3.amazonaws.com/' &&
+      npm run watch
+      "
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
+  fakes3:
+    image: eproxus/fakes3
+  fakes3ssl:
+    image: cbachich/docker-ssl-proxy
+    links:
+      - fakes3:proxyapp

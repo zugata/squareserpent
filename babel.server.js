@@ -1,6 +1,5 @@
 require("babel/register")({
-	stage: 0,
-	plugins: ["typecheck"]
+	stage: 0
 });
 
 /**
@@ -9,10 +8,6 @@ require("babel/register")({
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
 
-if (process.env.NODE_ENV !== "production") {
-	if (!require("piping")({hook: true, includeModules: true})) {
-		return;
-	}
+if (process.env.NODE_ENV === "production" || require("piping")({hook: true, includeModules: true})) {
+	require("./src/server");
 }
-
-require("./src/server");

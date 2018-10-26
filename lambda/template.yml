@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless app for sending email with SquareSerpent
+
+Resources:
+  SendEmail:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: send-email.handler
+      Runtime: nodejs6.10
+      Timeout: 15
+      Environment:
+        Variables:
+          SQUARESERPENT_S3_BUCKET_NAME: FILL_ME_IN
+          SQUARESERPENT_SMTP_HOST: FILL_ME_IN
+          SQUARESERPENT_SMTP_PORT: FILL_ME_IN
+          SQUARESERPENT_SMTP_USERNAME: FILL_ME_IN
+          SQUARESERPENT_SMTP_PASSWORD: FILL_ME_IN
