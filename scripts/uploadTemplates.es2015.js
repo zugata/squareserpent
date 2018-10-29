@@ -131,7 +131,7 @@ function getSampleDataForTemplate(template, masterVarMapping, varNameRegex) {
       .concat(COMMON_TEMPLATE_VARS)
       .uniq()
       .map(varName => [varName, masterVarMapping[varName]])
-      .zipObject()
+      .fromPairs()
       .value()
   );
 }

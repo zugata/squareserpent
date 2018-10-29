@@ -91,7 +91,7 @@ export default class S3TemplateRepository extends AbstractTemplateRepository {
             }
           })
           .compact()
-          .zipObject()
+          .fromPairs()
           .value()
       );
   }

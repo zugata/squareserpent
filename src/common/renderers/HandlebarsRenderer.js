@@ -105,7 +105,7 @@ export default class HandlebarsRenderer extends AbstractRenderer {
     // Render with special marker values that mark the variables for "re-output"
     const data = _(variableNames)
       .map(v => [v, _createVarForReoutput(v, variableFormatter)])
-      .zipObject()
+      .fromPairs()
       .value();
 
     const defaultEach = Handlebars.helpers.each,
@@ -204,7 +204,7 @@ export default class HandlebarsRenderer extends AbstractRenderer {
               return [placeholder, renderFn.apply(null, args)]
             });
           })
-        ).then(_.zipObject);
+        ).then(_.fromPairs);
 
       return renderingsByPlaceholderPromise.then(renderingsByPlaceholder => {
         const nextRendering =
